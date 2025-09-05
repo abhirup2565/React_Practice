@@ -1,0 +1,26 @@
+.input__field
+{
+  width: 100%;
+}
+.tenure
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.tenure__btn
+{
+  border-radius: 20%;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+}
+.tenure__btn.selected
+{
+  background-color: blue;
+}
+.labels
+{
+  display: flex;
+  justify-content: space-between;
+}
