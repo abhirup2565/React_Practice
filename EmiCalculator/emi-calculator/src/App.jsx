@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { tenureData } from './utils/constant'
+import TextInputs from './components/input'
 
 function App() {
   const [assetCost, setAssetCost] = useState(0)
@@ -46,45 +47,42 @@ function App() {
     return Number((downpaymentPercent/100)*assetCost).toFixed(0);
   }
 
+  useEffect(()=>{
+    if(!(assetCost>0))
+    {
+      setDownpayment(0)
+      setLoanPerMonth(0)
+    }
+
+    const emi = calculateEMI(downpayment)
+    setLoanPerMonth(loanPerMonth)
+  },[tenure])
+
   return (
     <div className="main-form">
       <h1>EMI CALCULATOR</h1>
 
-      <div className="input">
-        <h4> Asset Cost</h4>
-        <input 
-          type="number" 
-          className="input__field"
-          value={assetCost}
-          onChange={(e)=>setAssetCost(e.target.value)}>
-        </input>
-      </div>
+    <TextInputs 
+      title="Asset Cost"
+      state = {assetCost}
+      setstate={setAssetCost}
+    />
+  
+    <TextInputs 
+      title="Interest Rate (in %)"
+      state = {interestRate}
+      setstate={setInterestRate}
+    />
 
-
-      <h4>Interest Rate (in %)</h4>
-      <div className="input">
-        <input 
-          type="number" 
-          className="input__field"
-          value={interestRate}
-          onChange={(e)=>setInterestRate(Number(e.target.value))}>
-        </input>
-      </div>
-
-
-      <h4>Processing Fees (in%)</h4>
-      <div className="input">
-        <input 
-          type="number" 
-          className="input__field"
-          value={processingFees}
-          onChange={(e)=>setProcessingFees(e.target.value)}></input>
-      </div>
-
+    <TextInputs 
+      title="Processing Fees (in%)"
+      state = {processingFees}
+      setstate={setProcessingFees}
+    />
 
       <div className="input">
         <h4>Down Payment </h4>
-        <h4><u> Down Payment - rs</u></h4>
+        <h4><u> Down Payment - {(Number(downpayment)+(assetCost-downpayment)*(processingFees/100)).toFixed(0)}</u></h4>
         <div className='labels'>
         <label>0%</label>
         <b>{downpayment}</b>
@@ -103,11 +101,11 @@ function App() {
       </div>
       <div className="input">
         <h4>Loan Per Month</h4>
-        <h4 ><u>Total Loan Amount - rs</u></h4>
+        <h4 ><u>Total Loan Amount - {(loanPerMonth*tenure).toFixed(0)}</u></h4>
         <div className='labels'>
-        <label>0%</label>
+        <label>{calculateEMI(assetCost)} </label>
         <b>{loanPerMonth}</b>
-        <label>100%</label>
+        <label>{calculateEMI(0)} </label>
         </div>
         <input 
           type="range" 
