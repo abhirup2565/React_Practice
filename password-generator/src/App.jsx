@@ -31,8 +31,8 @@ function App() {
         <span>
           <label>Character Length</label>
           <label>4</label>
-          <input type="range" min='4' max='20'onChange={()=>{}} />
         </span>
+        <input type="range" min='4' max='20'onChange={()=>{}} />
       </div>
       <div className='checkboxes'>
         {checkboxData.map((data,i)=>{
