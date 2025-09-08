@@ -41,6 +41,7 @@ const usePasswordGenerator = () => {
         }
 
         setPassword(generatedPassword)
+        setErrorMessage("")
     }
     return {password,errorMessage,generatePassword};
 };
