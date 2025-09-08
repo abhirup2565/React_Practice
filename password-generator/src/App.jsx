@@ -22,11 +22,22 @@ function App() {
       state:false
     }]
   )
+  const [copied,setCopied] = useState(false);
 
   const handleCheckboxChange = (i)=>{
     const updatedCheckboxData = [...checkboxData]
     updatedCheckboxData[i].state = !updatedCheckboxData[i].state
     setCheckboxData(updatedCheckboxData)
+  }
+
+  const handleCopy = () =>{
+    navigator.clipboard.writeText(password);
+    setCopied(true);
+
+    setTimeout(()=>{
+      setCopied(false);
+    },3000)
+
   }
 
   const { password ,errorMessage, generatePassword} = usePasswordGenerator()
@@ -36,7 +47,7 @@ function App() {
       {password&&
       <div className='header'>
         <div className='title'>{password}</div>
-        <button className='copyBtn' onClick={()=>{}}>copy</button>
+        <button className='copyBtn' onClick={()=>{handleCopy()}}>{copied?"Copied":"Copy"}</button>
       </div>
       }
 
@@ -58,6 +69,10 @@ function App() {
       </div>
 
       {/* strength */}
+      
+      {errorMessage&&<div className='errorMessage'>
+        {errorMessage}
+        </div>}
 
       <button className='generateBtn' onClick={()=>{generatePassword(checkboxData,length)}}>Generate</button>
 
