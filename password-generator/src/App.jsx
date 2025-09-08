@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import usePasswordGenerator from './hooks/use-password-generator';
 import PasswordStrengthIndicator from './component/StrengthChecker';
+import Button from './component/Buttons';
+import Checkbox from './component/CheckBox';
 
 function App() {
   const [length,setLength] = useState(4);
@@ -37,7 +39,7 @@ function App() {
 
     setTimeout(()=>{
       setCopied(false);
-    },3000)
+    },1000)
 
   }
 
@@ -48,7 +50,7 @@ function App() {
       {password&&
       <div className='header'>
         <div className='title'>{password}</div>
-        <button className='copyBtn' onClick={()=>{handleCopy()}}>{copied?"Copied":"Copy"}</button>
+        <Button customClass = 'copyBtn' onClick = {handleCopy} text={copied?"Copied":"Copy"}/>
       </div>
       }
 
@@ -62,10 +64,7 @@ function App() {
 
       <div className='checkboxes'>
         {checkboxData.map((data,i)=>{
-          return <div key={i}>
-            <input type="checkbox" checked={data.state} onChange={()=>handleCheckboxChange(i)}/>
-            <label>{data.title}</label>
-            </div>
+          return(<Checkbox key={i} type="checkbox" title={data.title} state={data.state} onChange={()=>handleCheckboxChange(i)}/>);
         })}
       </div>
 
@@ -75,9 +74,7 @@ function App() {
         {errorMessage}
         </div>}
 
-      <button className='generateBtn' onClick={()=>{generatePassword(checkboxData,length)}}>Generate</button>
-
-
+      <Button customClass = 'generateBtn' onClick = {()=>generatePassword(checkboxData,length)} text="Generate"/>
     </div>
   )
 }
