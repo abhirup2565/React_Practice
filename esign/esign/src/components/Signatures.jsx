@@ -5,7 +5,7 @@ const Signatures = ({signatureDetails})=>{
             <p>Signature ID: {signatureDetails.signatureId}</p>
             {signatureDetails.signers.map((element,index)=>{
                 return(<div key={index}>
-                <a href={element.signatureUrl}>Click to sign</a>
+                <a href={element.signatureUrl} target="_blank">Click to sign</a>
                 <p>{element.status}</p>
                 </div>)
             })}
