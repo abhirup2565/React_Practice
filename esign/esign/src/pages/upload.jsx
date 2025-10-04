@@ -3,7 +3,7 @@ import '../App.css'
 import uploadDocument from '../utils/useUpload';
 import Settings from '../pages/settings';
 import createSign from '../utils/createSign';
-import Signatures from '../components/Signatures';
+import Signatures from '..Signatures';
 
 const Upload = ({documentId,setDocumentId,signatureDetails,setSignatureDetails,setErrors}) =>{
 const onSubmit =async (e)=>
